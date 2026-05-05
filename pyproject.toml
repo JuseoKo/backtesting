@@ -1,0 +1,47 @@
+[project]
+name = "backtesting"
+version = "0.1.0"
+description = "Data engineering pipeline for stock backtesting research."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2.3",
+    "pyarrow>=18.1.0",
+    "pydantic>=2.10.4",
+    "pydantic-settings>=2.7.0",
+    "structlog>=24.4.0",
+    "typer>=0.15.1",
+]
+
+[project.scripts]
+backtestion = "backtestion.cli:app"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.8.4",
+]
+spark = [
+    "pyspark>=3.5.4",
+]
+trino = [
+    "trino>=0.333.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = []
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+pythonpath = ["src"]
